@@ -1,0 +1,35 @@
+#!/bin/bash
+
+#SBATCH --job-name="cp2k-H2O256-n__NODES__-c__CPUS__"
+#SBATCH --nodes=__NODES__
+#SBATCH --ntasks=__NTASKS__
+#SBATCH --cpus-per-task=__CPUS__
+#SBATCH --output=__OUTDIR__/slurm_%j.out
+#SBATCH --error=__OUTDIR__/slurm_%j.err
+
+ml load CP2K/2023.1-foss-2023a
+
+export OMP_NUM_THREADS=__CPUS__
+
+echo "=========================================="
+echo "CP2K H2O-256 benchmark"
+echo "=========================================="
+echo "Nodes:          __NODES__"
+echo "NTASKS:         __NTASKS__"
+echo "CPUs/task:      __CPUS__"
+echo "Total CPUs:     __TOTAL_CPUS__"
+echo "=========================================="
+
+cd "__OUTDIR__" || exit 1
+
+rm -f H2O-256.out
+rm -f H2O-256-*.ener
+rm -f H2O-256-pos-*.xyz
+
+
+export PATH=$PATH:<HYPERFINE_BIN_DIR>
+export INPUT_FILE=<CP2K_SRC_DIR/benchmarks/QS/H2O-256.inp>
+
+hyperfine --warmup 1 --runs 3 \
+    --prepare "rm H2O-256* || true" \
+     "srun --mpi=pmix --nodes=__NODES__ --ntasks=__NTASKS__ --ntasks-per-node=__NTASKS_PER_NODE__ --cpus-per-task=__CPUS__ cp2k.psmp -i ${INPUT_FILE} -o H2O-256.out"
