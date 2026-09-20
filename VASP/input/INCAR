@@ -1,0 +1,8 @@
+PREC = Accurate
+ENCUT = 400
+ISMEAR = 0
+SIGMA = 0.01
+EDIFF = 1E-4
+IBRION = 2
+NSW = 10
+ISIF = 3
