@@ -1,0 +1,9 @@
+/file/read-case "uav coarse mesh results.cas.h5"
+
+/solve/initialize/initialize-flow
+
+/solve/iterate 100
+
+/file/write-data "uav_results_100iter.dat.h5"
+
+/exit yes
