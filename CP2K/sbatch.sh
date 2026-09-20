@@ -31,4 +31,4 @@ export PATH=$PATH:$project/users/$USER/software-install/hyperfine/hyperfine-v1.2
 
 hyperfine --warmup 1 --runs 3 \
     --prepare "rm H2O-256* || true" \
-     "srun --mpi=pmix --nodes=1 --ntasks=14 --ntasks-per-node=14 --cpus-per-task=4 cp2k.psmp -i ./input/H2O-256.inp -o H2O-256.out"
+     "srun --mpi=pmix --nodes=1 --ntasks=14 --ntasks-per-node=14 --cpus-per-task=4 cp2k.psmp -i H2O-256.inp -o H2O-256.out"
