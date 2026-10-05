@@ -11,21 +11,15 @@
 #SBATCH -e ./output/vasp_error_%A.log
 
 module purge
+ml unuse /srv/software/easybuild/a100/modules/all
 
 cd ./input
 
 ml load VASP/6.6.0-NVHPC-23.5-CUDA-12.2.0
 
-#echo "===== GPU status before run ====="
-nvidia-smi
-export NVCOMPILER_ACC_NOTIFY=3
 export NVCOMPILER_ACC_SYNCHRONOUS=1
 
-nvidia-smi dmon -s um -d 1 > gpu_usage.log &
-MONITOR_PID=$!
 
 echo "===== Starting VASP ====="
-#IMPORTANT: bind 1 rank per GPU
-srun --mpi=pmix --gpus-per-task=1 vasp_std
+srun --mpi=pmix vasp_std
 
-kill $MONITOR_PID
