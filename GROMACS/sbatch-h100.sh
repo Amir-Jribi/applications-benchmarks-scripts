@@ -14,4 +14,4 @@ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
 module load GROMACS/2024.4-foss-2023b-CUDA-12.4.0
 
-srun --pmi=pmix gmx_mpi mdrun -s benchMEM.tpr -nb gpu -pme gpu -bonded gpu
+srun --mpi=pmix gmx_mpi mdrun -s benchMEM.tpr -nb gpu -pme gpu -bonded gpu
