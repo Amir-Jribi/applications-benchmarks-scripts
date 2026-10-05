@@ -2,7 +2,7 @@
 
 #SBATCH --job-name=benchMEM
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=2
+#SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=28
 #SBATCH --account=sw_stack-373lcd9r8io-premium-gpu
 #SBATCH --partition=gpu_h100
