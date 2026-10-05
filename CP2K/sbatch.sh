@@ -25,10 +25,5 @@ rm -f H2O-256.out
 rm -f H2O-256-*.ener
 rm -f H2O-256-pos-*.xyz
 
+srun --mpi=pmix cp2k.psmp -i H2O-256.inp -o H2O-256.out
 
-export PATH=$PATH:$project/users/$USER/software-install/hyperfine/hyperfine-v1.20.0-x86_64-unknown-linux-gnu
-
-
-hyperfine --warmup 1 --runs 3 \
-    --prepare "rm H2O-256* || true" \
-     "srun --mpi=pmix --nodes=1 --ntasks=14 --ntasks-per-node=14 --cpus-per-task=4 cp2k.psmp -i H2O-256.inp -o H2O-256.out"
